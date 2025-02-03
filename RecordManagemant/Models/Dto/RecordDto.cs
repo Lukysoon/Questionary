@@ -15,7 +15,7 @@ public class RecordDto
 
     public bool DontHavePin { get; set; }
     [RequiredIf("DontHavePin", false)]
-    // [RegularExpression(@"/^\d{6}\/?\d{3,4}$/")]
+    [RegularExpression(@"^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\/?\d{3,4}$")]
     public string? PersonalIdentificationNumber { get; set; }
     [Required]
     public DateTime DateOfBirth { get; set; }
