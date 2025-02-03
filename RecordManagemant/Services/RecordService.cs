@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using RecordManagemant.Entities;
 using RecordManagemant.Models.Dto;
 using RecordManagemant.Repositories;
@@ -23,7 +24,8 @@ namespace RecordManagemant.Services
             var record = new Record();
             try
             {
-                recordDto.PersonalIdentificationNumber = record.PersonalIdentificationNumber.Replace("/", "");
+                if (!recordDto.PersonalIdentificationNumber.IsNullOrEmpty())
+                    recordDto.PersonalIdentificationNumber = recordDto.PersonalIdentificationNumber!.Replace("/", "");
                 record = _mapper.Map<Record>(recordDto);
             }
             catch (Exception ex)

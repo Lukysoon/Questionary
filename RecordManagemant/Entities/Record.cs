@@ -8,7 +8,7 @@ namespace RecordManagemant.Entities
         public Guid Id { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
-        public string PersonalIdentificationNumber { get; set; } = string.Empty;
+        public string? PersonalIdentificationNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
         public string Email { get; set; } = null!;
