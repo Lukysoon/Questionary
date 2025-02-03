@@ -39,29 +39,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Create New Record" xml:space="preserve">
+  <data name="CreateNewRecord" xml:space="preserve">
     <value>Vytvořit nový záznam</value>
   </data>
-  <data name="First Name" xml:space="preserve">
+  <data name="FirstName" xml:space="preserve">
     <value>Jméno</value>
   </data>
-  <data name="Last Name" xml:space="preserve">
+  <data name="LastName" xml:space="preserve">
     <value>Příjmení</value>
   </data>
-  <data name="I don't have a PIN" xml:space="preserve">
+  <data name="DontHavePin" xml:space="preserve">
     <value>Nemám rodné číslo</value>
   </data>
-  <data name="Personal Identification Number (PIN)" xml:space="preserve">
+  <data name="PersonalIdentificationNumber" xml:space="preserve">
     <value>Rodné číslo</value>
   </data>
-  <data name="Date of Birth" xml:space="preserve">
+  <data name="DateOfBirth" xml:space="preserve">
     <value>Datum narození</value>
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Pohlaví</value>
   </data>
-  <data name="Select Gender" xml:space="preserve">
-    <value>Vyberte pohlaví</value>
+  <data name="SelectGender" xml:space="preserve">
+    <value>--Vyberte pohlaví--</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -69,16 +69,19 @@
   <data name="Nationality" xml:space="preserve">
     <value>Národnost</value>
   </data>
-  <data name="Select Nationality" xml:space="preserve">
-    <value>Vyberte národnost</value>
+  <data name="SelectNationality" xml:space="preserve">
+    <value>--Vyberte národnost--</value>
   </data>
-  <data name="I consent to the processing of my personal data according to GDPR" xml:space="preserve">
+  <data name="GdprConsentText" xml:space="preserve">
     <value>Souhlasím se zpracováním osobních údajů podle GDPR</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>Vytvořit</value>
+  <data name="Submit" xml:space="preserve">
+    <value>Odeslat</value>
   </data>
-  <data name="Back to List" xml:space="preserve">
-    <value>Zpět na seznam</value>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="PinWrongFormat" xml:space="preserve">
+    <value>Nesprávný formát rodného čísla</value>
   </data>
 </root>
