@@ -1,0 +1,15 @@
+@model RecordManagemant.Models.Dto.RecordDto
+@using System.Text.Json
+@using RecordManagemant.Resources
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResource> SharedResource
+
+@{
+    ViewData["Title"] = "Výsledek";
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    var jsonString = JsonSerializer.Serialize(Model, options);
+}
+
+<div class="container mt-4">
+    <h2>"SharedResource.FormResult"</h2>
+    <pre class="bg-light p-3 mt-3 border rounded">@jsonString</pre>
+</div>

@@ -1,0 +1,333 @@
+{
+	"info": {
+		"_postman_id": "random-uuid",
+		"name": "Record Management API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Record - Valid Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 302 Found (Redirect after successful creation)\", function () {",
+							"    pm.response.to.have.status(302);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "Doe",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirth",
+							"value": "1990-01-01",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "john.doe@example.com",
+							"type": "text"
+						},
+						{
+							"key": "Nationality",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "GdprConsent",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "PersonalIdentificationNumber",
+							"value": "123456/789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Record/Create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Record",
+						"Create"
+					]
+				}
+			}
+		},
+		{
+			"name": "Create Record - Missing Required Fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 (Returns to form with validation errors)\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains validation error messages\", function () {",
+							"    pm.expect(pm.response.text()).to.include('field is required');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "Doe",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Record/Create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Record",
+						"Create"
+					]
+				}
+			}
+		},
+		{
+			"name": "Create Record - Invalid Email Format",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 (Returns to form with validation errors)\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains email validation error\", function () {",
+							"    pm.expect(pm.response.text()).to.include('valid email address');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "Doe",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirth",
+							"value": "1990-01-01",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "invalid-email",
+							"type": "text"
+						},
+						{
+							"key": "Nationality",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "GdprConsent",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "PersonalIdentificationNumber",
+							"value": "123456/789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Record/Create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Record",
+						"Create"
+					]
+				}
+			}
+		},
+		{
+			"name": "Create Record - Missing GDPR Consent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 (Returns to form with validation errors)\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains GDPR consent validation error\", function () {",
+							"    pm.expect(pm.response.text()).to.include('field is required');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "FirstName",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "LastName",
+							"value": "Doe",
+							"type": "text"
+						},
+						{
+							"key": "DateOfBirth",
+							"value": "1990-01-01",
+							"type": "text"
+						},
+						{
+							"key": "Gender",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "john.doe@example.com",
+							"type": "text"
+						},
+						{
+							"key": "Nationality",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "PersonalIdentificationNumber",
+							"value": "123456/789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Record/Create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Record",
+						"Create"
+					]
+				}
+			}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

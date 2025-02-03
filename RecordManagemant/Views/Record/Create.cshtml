@@ -1,0 +1,147 @@
+@model RecordManagemant.Models.Dto.RecordDto
+@using RecordManagemant.Models.Enums
+
+@{
+    ViewData["Title"] = "Create Record";
+}
+
+<div class="container">
+    <h2>Create New Record</h2>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-check">
+                <input asp-for="DontHavePin" class="form-check-input" id="dontHavePin" />
+                <label asp-for="DontHavePin" class="form-check-label">I don't have a PIN</label>
+            </div>
+        </div>
+
+        <div class="mb-3" id="pinSection">
+            <label asp-for="PersonalIdentificationNumber" class="form-label">Personal Identification Number (PIN)</label>
+            <input asp-for="PersonalIdentificationNumber" class="form-control" />
+            <span asp-validation-for="PersonalIdentificationNumber" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Gender" class="form-label">Gender</label>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
+                    <option value="">Select Gender</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" type="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Nationality" class="form-label">Nationality</label>
+            <select asp-for="Nationality" asp-items="Model.NationalityList" class="form-select">
+                <option value="">Select Nationality</option>
+            </select>
+            <span asp-validation-for="Nationality" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-check">
+                <input asp-for="GdprConsent" class="form-check-input" />
+                <label asp-for="GdprConsent" class="form-check-label">I agree to the processing of my personal data</label>
+                <span asp-validation-for="GdprConsent" class="text-danger d-block"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // extend range validator method to treat checkboxes differently
+        var defaultRangeValidator = $.validator.methods.range;
+        $.validator.methods.range = function(value, element, param) {
+            if(element.type === 'checkbox') {
+                // if it's a checkbox return true if it is checked
+                return element.checked;
+            } else {
+                // otherwise run the default validation function
+                return defaultRangeValidator.call(this, value, element, param);
+            }
+        }
+
+        $(document).ready(function() {
+            function togglePinSection() {
+                if ($('#dontHavePin').is(':checked')) {
+                    $('#pinSection').hide();
+                    $('#PersonalIdentificationNumber').val('');
+                } else {
+                    $('#pinSection').show();
+                }
+            }
+
+            $('#dontHavePin').change(togglePinSection);
+            togglePinSection(); // Initial state
+        });
+
+            document.getElementById("PersonalIdentificationNumber").addEventListener("change", function() {
+        var pin = $('#PersonalIdentificationNumber').val();
+        TryFillBirthDate(pin);
+    });
+    
+    function TryFillBirthDate(pin)
+    {
+        if (!IsValidPIN) { return; }
+
+        var dateBirth = getBirthDateFromRPIN(pin);
+        $('#DateOfBirth').val(dateBirth);
+    }
+
+    function IsValidPIN(pin)
+    {
+        let pattern = /^\d{6}\/?\d{3,4}$/;
+        console.log(pattern.test(pin));
+        return pattern.test(pin);
+    }
+
+    function getBirthDateFromRPIN(pin) {
+
+        if (!IsValidPIN(pin)) { return; }
+
+        let dateNumbers = pin.substr(0, 6);
+
+        let year = parseInt(dateNumbers.substr(0, 2));
+        let month = parseInt(dateNumbers.substr(2, 2));
+        let day = parseInt(dateNumbers.substr(4, 2)) + 1;
+
+        let birthdate = new Date(year, month - 1, day);
+
+        return birthdate.toISOString().substring(0, 10);
+    }
+    </script>
+}
