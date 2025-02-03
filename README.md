@@ -11,12 +11,6 @@
 - ASP.NET Core MVC
 - Entity Framework Migrations
 
-## Prerequisites
-
-- .NET 8.0 SDK
-- SQL Server
-- Visual Studio 2022 or VS Code
-
 ## Setup Instructions
 
 1. Clone the repository
